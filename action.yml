@@ -1,0 +1,10 @@
+# https://help.github.com/en/articles/metadata-syntax-for-github-actions
+name: 'Nuget Pack and Push'
+description: 'Github Action for dotnet pack and nuget push'
+author: 'piot'
+runs:
+  using: 'node12'
+  main: 'lib/main.js'
+branding:
+  color: 'green'
+  icon: 'package'
