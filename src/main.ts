@@ -20,7 +20,7 @@ async function run() {
       if (!workspaceIsDirectory) {
         workspaceDirectory = path.dirname(workspace)
       }
-      nupkgFile = path.join(workspaceDirectory, 'bin/Release/*.nupkg')
+      nupkgFile = path.join(workspaceDirectory, 'bin/Debug/*.nupkg')
     }
 
     const forceVersion = core.getInput('version')
