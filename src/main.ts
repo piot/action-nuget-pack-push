@@ -1,6 +1,7 @@
 import * as core from '@actions/core';
 import * as exec from '@actions/exec';
 import * as path from 'path';
+import * as fs from 'fs';
 
 async function run() {
   try {
@@ -13,7 +14,13 @@ async function run() {
 
     let nupkgFile = core.getInput('nupkg')
     if (nupkgFile == '') {
-      nupkgFile = path.join(path.dirname(workspace), 'bin/Release/*.nupkg')
+      const workspaceIsDirectory = fs.existsSync(workspace) && fs.lstatSync(workspace).isDirectory()
+
+      let workspaceDirectory = workspace
+      if (!workspaceIsDirectory) {
+        workspaceDirectory = path.dirname(workspace)
+      }
+      nupkgFile = path.join(workspaceDirectory, 'bin/Release/*.nupkg')
     }
 
     const forceVersion = core.getInput('version')
