@@ -23,7 +23,7 @@ async function run() {
     }
 
     core.info(`dotnet pack ${packParams} ${workspace}`)
-    exec.exec(`dotnet pack ${packParams} ${workspace} -Verbosity detailed`)
+    exec.exec(`dotnet pack ${packParams} ${workspace}`)
 
     core.info(`./nuget.exe push ${nupkgFile}`)
     exec.exec(`./nuget.exe push ${nupkgFile} -ApiKey ${nugetApiKey} -Source https://api.nuget.org/v3/index.json  -Verbosity detailed`)
