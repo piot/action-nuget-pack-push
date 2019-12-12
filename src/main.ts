@@ -6,6 +6,10 @@ import * as fs from 'fs';
 async function run() {
   try {
     const nugetApiKey = core.getInput('nuget-api-key')
+    if (!nugetApiKey) {
+      core.setFailed(`you must specify 'nuget-api-key' input`)
+      return
+    }
   
     let workspace = core.getInput('workspace')
     if (workspace == '') {
@@ -30,7 +34,7 @@ async function run() {
     }
 
     core.info(`dotnet pack ${packParams} ${workspace}`)
-    await exec.exec(`dotnet pack ${packParams} ${workspace}`)
+    await exec.exec(`dotnet pack ${packParams} ${workspace} -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg`)
 
     core.info(`./nuget.exe push ${nupkgFile}`)
     await exec.exec(`./nuget.exe push ${nupkgFile} -ApiKey ${nugetApiKey} -Source https://api.nuget.org/v3/index.json  -Verbosity detailed`)
